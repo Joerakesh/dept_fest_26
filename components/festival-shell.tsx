@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useRef, useState, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { LandingNavbar } from "@/components/landing-navbar";
 import { playUiSfx } from "@/lib/sounds";
 
@@ -14,6 +15,8 @@ export function useFestivalSound() {
 }
 
 export function FestivalShell({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+  const isLanding = pathname === "/";
   const audioRef = useRef<HTMLAudioElement>(null);
   const [sound, setSound] = useState(false);
 
@@ -37,10 +40,8 @@ export function FestivalShell({ children }: { children: ReactNode }) {
   return (
     <SoundContext.Provider value={{ uiSound }}>
       <div className="min-h-screen overflow-hidden bg-[#090b0c] text-[#eee9dc] [--ember:#eb593d] [--gold:#d3ae61] [--paper:#eee9dc] [--dim:#a19b8d] [--ink:#090b0c]">
-        <LandingNavbar sound={sound} onToggleSound={toggleSound} uiSound={uiSound} />
-        <audio ref={audioRef} loop preload="metadata" aria-hidden="true">
-          <source src="/Avengers%20Doomsday%20Epic%20Orchestral%20Remix.mp3" type="audio/mpeg" />
-        </audio>
+        {!isLanding && <LandingNavbar sound={sound} onToggleSound={toggleSound} uiSound={uiSound} />}
+        {!isLanding && <audio ref={audioRef} loop preload="metadata" aria-hidden="true"><source src="/audio/ambient.mp3" type="audio/mpeg" /></audio>}
         {children}
       </div>
     </SoundContext.Provider>
