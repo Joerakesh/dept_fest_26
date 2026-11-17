@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
-import { ArrowUpRight, CalendarDays, MapPin, RotateCcw, Sparkles, Volume2, VolumeX } from "lucide-react";
+import { ArrowUpRight, CalendarDays, MapPin, RotateCcw, Sparkles } from "lucide-react";
 
 type EventRecord = {
   id: string; name: string; category?: string; description?: string;
@@ -113,7 +113,7 @@ export function SymposiumLandingExperience() {
           <p className="font-mono text-xs tracking-[.25em] text-[#00ff66]">LOYOLA COLLEGE · INTER-COLLEGIATE TECH FEST</p>
           <h1 className="metallic-title mt-5 font-serif text-5xl font-black leading-[1.04] tracking-[.08em] sm:text-6xl lg:text-7xl">THE<br/>DOOMSDAY<br/><span className="text-[#00ff66]">PROTOCOL</span></h1>
           <p className="mt-7 max-w-xl text-base leading-relaxed text-[#a8b5b0] sm:text-lg">Choose your arena. Trigger its cinematic hero sequence. Bring your sharpest ideas to TECHRODEO.</p>
-          <div className="mt-8 flex flex-wrap gap-3"><a href="#events" className="inline-flex items-center gap-2 rounded-xl bg-[#00ff66] px-6 py-3.5 text-sm font-bold text-[#050806] shadow-[0_0_28px_rgba(0,255,102,.25)]">Explore {summary.count||"the"} events <ArrowUpRight size={16}/></a><button onClick={toggleAudio} className="inline-flex items-center gap-2 rounded-xl border border-white/20 px-5 py-3.5 text-sm text-white">{audio?<Volume2 size={16}/>:<VolumeX size={16}/>} {audio?"Theme audio on":"Play theme audio"}</button></div>
+          <div className="mt-8 flex flex-wrap gap-3"><a href="#events" className="inline-flex items-center gap-2 rounded-xl bg-[#00ff66] px-6 py-3.5 text-sm font-bold text-[#050806] shadow-[0_0_28px_rgba(0,255,102,.25)]">Explore {summary.count||"the"} events <ArrowUpRight size={16}/></a></div>
           <div className="mt-12 grid max-w-lg grid-cols-3 gap-5 border-t border-white/10 pt-7"><div><strong className="font-mono text-2xl text-white">{summary.date?new Date(summary.date+"T00:00:00").toLocaleDateString("en-IN",{month:"short",day:"numeric"}):"TBA"}</strong><p className="mt-1 text-xs text-[#8e9b97]">Event date</p></div><div><strong className="font-mono text-2xl text-white">{String(summary.count).padStart(2,"0")}</strong><p className="mt-1 text-xs text-[#8e9b97]">Published arenas</p></div><div><strong className="font-mono text-2xl text-[#00ff66]">GO</strong><p className="mt-1 text-xs text-[#8e9b97]">Your moment</p></div></div>
         </motion.div>
         <motion.div className="lg:col-span-5" initial={{opacity:0,scale:.9}} animate={{opacity:1,scale:1}} transition={{duration:1,delay:.35}}><HeroFigure theme={6}/><p className="text-center font-mono text-[10px] tracking-[.3em] text-[#8e9b97]">DOOMSDAY PROTOCOL · {dateLabel.toUpperCase()}</p></motion.div>
