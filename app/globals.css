@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -114,3 +115,13 @@ button,input { font: inherit; }
 .tech-marquee__track { animation: marquee-scroll var(--marquee-duration, 38s) linear infinite; }
 .tech-marquee:hover .tech-marquee__track { animation-play-state: paused; }
 .tech-marquee__group { display: flex; width: max-content; flex: none; align-items: center; white-space: nowrap; padding-inline-end: 2.5rem; }
+
+
+/* Cinematic DATAVERSE-inspired visual system */
+.metallic-title {
+  background: linear-gradient(180deg,#f3f7f5 0%,#c4d1cc 38%,#8e9b97 54%,#586661 78%,#b5c4be 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 28px rgba(0,255,102,.24)) drop-shadow(0 6px 18px rgba(0,0,0,.85));
+}
+@keyframes entry-glow { 0%,100%{opacity:.3;transform:scale(.92)}50%{opacity:.75;transform:scale(1.08)} }
+@keyframes embers-rise { from{transform:translateY(0)}to{transform:translateY(-110vh)} }
