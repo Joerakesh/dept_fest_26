@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { useRouter } from "next/navigation";
 import { HeroFigure3D } from "@/components/hero-figure-3d";
 import { ArrowUpRight, CalendarDays, MapPin, RotateCcw, Sparkles } from "lucide-react";
 
@@ -67,18 +66,15 @@ function HeroFigure({ theme }: {theme:number}) {
 }
 
 export function SymposiumLandingExperience() {
-  const router=useRouter();
-  const [events,setEvents]=useState<EventRecord[]>([]);
   const [intro,setIntro]=useState(true);
   const [transition,setTransition]=useState<{event:EventRecord,index:number}|null>(null);
   const [selectedEvent,setSelectedEvent]=useState<{event:EventRecord,index:number}|null>(null);
-  useEffect(()=>{const c=new AbortController();fetch("/api/events",{cache:"no-store",signal:c.signal}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(p=>setEvents(Array.isArray(p.data)?p.data:(Array.isArray(p.events)?p.events:[]))).catch(()=>setEvents([]));return()=>c.abort();},[]);
   const visibleEvents=zipEvents;
-  const summary=useMemo(()=>({count:visibleEvents.length,date:visibleEvents.find(e=>e.eventDate)?.eventDate}),[visibleEvents]);
+  const summary=useMemo(()=>({count:visibleEvents.length}),[visibleEvents]);
   const startTransition=useCallback((event:EventRecord,index:number)=>setTransition({event,index}),[]);
   const finishTransition=useCallback(()=>{if(!transition)return;setSelectedEvent(transition);setTransition(null);},[transition]);
   useEffect(()=>{if(!transition)return;const timer=window.setTimeout(finishTransition,1250);return()=>window.clearTimeout(timer);},[transition,finishTransition]);
-  const dateLabel=summary.date?new Date(summary.date+"T00:00:00").toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"}):"DATE TO BE ANNOUNCED";
+  const dateLabel="DATE TO BE ANNOUNCED";
   return <div className="relative min-h-screen overflow-hidden bg-[#050806] text-[#e6ece9] selection:bg-[#00ff66]/30">
     <FogCanvas/>
     <AnimatePresence>{intro&&<EntryIntro onDone={()=>setIntro(false)}/>}</AnimatePresence>
@@ -106,7 +102,7 @@ export function SymposiumLandingExperience() {
     </motion.div>}</AnimatePresence>
     <header className="sticky top-0 z-30 border-b border-[#8e9b97]/15 bg-[#050806]/85 backdrop-blur-xl">
       <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between gap-5 px-5 sm:px-8">
-        <a href="#top" className="shrink-0 font-serif text-lg font-black tracking-[.17em] text-white">TECH<span className="text-[#00ff66]">RODEO</span></a>
+        <a href="#top" className="shrink-0 font-serif text-lg font-black tracking-[.17em] text-white"><span className="text-white">DATA</span><span className="text-[#00ff66]">VERSE</span></a>
         <nav className="hidden items-center gap-8 text-sm text-[#8e9b97] md:flex"><a href="#events" className="hover:text-white">Events</a><a href="#schedule" className="hover:text-white">Schedule</a><a href="#venue" className="hover:text-white">Venue</a></nav>
         <div className="flex items-center gap-2">
           <button onClick={()=>setIntro(true)} className="hidden items-center gap-2 rounded-lg border border-white/15 px-3 py-2 text-xs text-[#aab5af] sm:flex"><RotateCcw size={14}/> Replay intro</button>
@@ -124,7 +120,7 @@ export function SymposiumLandingExperience() {
           <div className="mt-8 flex flex-wrap gap-3"><a href="#events" className="inline-flex items-center gap-2 rounded-xl bg-[#00ff66] px-6 py-3.5 text-sm font-bold text-[#050806] shadow-[0_0_28px_rgba(0,255,102,.25)]">Explore {summary.count||"the"} events <ArrowUpRight size={16}/></a></div>
           <div className="mt-12 grid max-w-lg grid-cols-3 gap-5 border-t border-white/10 pt-7"><div><strong className="font-mono text-2xl text-white">{summary.date?new Date(summary.date+"T00:00:00").toLocaleDateString("en-IN",{month:"short",day:"numeric"}):"TBA"}</strong><p className="mt-1 text-xs text-[#8e9b97]">Event date</p></div><div><strong className="font-mono text-2xl text-white">{String(summary.count).padStart(2,"0")}</strong><p className="mt-1 text-xs text-[#8e9b97]">Published arenas</p></div><div><strong className="font-mono text-2xl text-[#00ff66]">GO</strong><p className="mt-1 text-xs text-[#8e9b97]">Your moment</p></div></div>
         </motion.div>
-        <motion.div className="lg:col-span-5" initial={{opacity:0,scale:.9}} animate={{opacity:1,scale:1}} transition={{duration:1,delay:.35}}><HeroFigure theme={6}/><p className="text-center font-mono text-[10px] tracking-[.3em] text-[#8e9b97]">DOOMSDAY PROTOCOL · {dateLabel.toUpperCase()}</p></motion.div>
+        <motion.div className="lg:col-span-5" initial={{opacity:0,scale:.9}} animate={{opacity:1,scale:1}} transition={{duration:1,delay:.35}}><HeroFigure theme={6}/><p className="text-center font-mono text-[10px] tracking-[.3em] text-[#8e9b97]">DATAVERSE · {dateLabel.toUpperCase()}</p></motion.div>
       </section>
 
       <section id="events" className="mx-auto max-w-6xl border-t border-white/10 px-5 py-16 sm:px-8 sm:py-24">
