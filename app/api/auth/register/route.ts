@@ -12,6 +12,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const name = typeof body.name === "string" ? body.name.trim().replace(/\s+/g, " ") : "";
     const college = typeof body.college === "string" ? body.college.trim().replace(/\s+/g, " ") : "";
+    const department = typeof body.department === "string" ? body.department.trim().replace(/\s+/g, " ") : "";
     const password = typeof body.password === "string" ? body.password : "";
 
     if (name.length < 2 || name.length > 80) {
@@ -19,6 +20,9 @@ export async function POST(request: Request) {
     }
     if (college.length < 2 || college.length > 120) {
       return NextResponse.json({ error: "Enter a valid college name." }, { status: 400 });
+    }
+    if (department.length < 2 || department.length > 100) {
+      return NextResponse.json({ error: "Enter a valid department name." }, { status: 400 });
     }
     if (password.length < 8 || password.length > 128) {
       return NextResponse.json({ error: "Password must be at least 8 characters." }, { status: 400 });
@@ -44,6 +48,7 @@ export async function POST(request: Request) {
       username,
       name,
       college,
+      department,
       passwordHash: await hashPassword(password),
       role: "student",
       createdAt: now,
@@ -52,7 +57,7 @@ export async function POST(request: Request) {
     const { token, expiresAt } = await createSession(db, result.insertedId);
     const response = NextResponse.json({
       message: "Account created.",
-      user: { username, name, college, role: "student" },
+      user: { username, name, college, department, role: "student" },
     }, { status: 201 });
     response.cookies.set(SESSION_COOKIE, token, { ...sessionCookieOptions, expires: expiresAt });
     return response;
