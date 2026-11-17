@@ -49,7 +49,6 @@ function HelmetArtwork() {
 export function LandingPage() {
   const [sound, setSound] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [registered, setRegistered] = useState(false);
   function uiSound(kind: "select" | "confirm" = "select") { if (sound) playUiSfx(kind); }
   return <main className="[--ember:#eb593d] [--gold:#d3ae61] [--paper:#eee9dc] [--dim:#a19b8d] [--ink:#090b0c] text-[#eee9dc] min-h-screen overflow-hidden text-[#eee9dc]">
     <LandingNavbar sound={sound} onToggleSound={() => { if (!sound) playUiSfx("confirm"); setSound(!sound); }} uiSound={uiSound} />
