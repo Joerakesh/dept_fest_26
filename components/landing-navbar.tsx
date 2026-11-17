@@ -20,7 +20,7 @@ export function LandingNavbar({ sound, onToggleSound, uiSound }: LandingNavbarPr
           <span className="grid size-9 place-items-center border border-[rgba(217,176,91,0.56)] bg-[linear-gradient(145deg,rgba(151,123,63,0.24),rgba(25,30,26,0.3))] text-[#ead091] shadow-[0_0_20px_rgba(183,55,41,0.15),inset_0_0_14px_rgba(215,176,91,0.07)]"><Flame size={19}/></span>
           <span>
             <strong className="block text-[13px] font-black tracking-[.17em]">TECH<span className="text-[#e9543b]">RODEO</span></strong>
-            <small className="mt-1 block text-[8px] font-bold tracking-[.24em] text-[#9d9687]">DOOMSDAY · 2026</small>
+            <small className="mt-1 block text-[8px] font-bold tracking-[.24em] text-[#9d9687]">DOOMSDAY PROTOCOL</small>
           </span>
         </Link>
 
@@ -57,7 +57,7 @@ export function LandingNavbar({ sound, onToggleSound, uiSound }: LandingNavbarPr
 
       <div className={"fixed inset-0 -z-10 hidden overflow-hidden bg-[rgba(5,7,8,0.97)] transition-[clip-path,opacity,visibility] duration-500 max-[767px]:block " + (menuOpen ? "visible opacity-100 [clip-path:circle(150vmax_at_calc(100%-42px)_35px)]" : "invisible opacity-0 [clip-path:circle(0px_at_calc(100%-42px)_35px)]")} aria-hidden={!menuOpen}>
         <nav className="flex min-h-full w-full flex-col justify-center gap-0 px-[34px] pb-[42px] pt-[92px]" aria-label="Mobile navigation">
-          <span className="mb-6 font-sans text-[9px] tracking-[.2em] text-[#c9a965]">TECHRODEO · DOOMSDAY 2026</span>
+          <span className="mb-6 font-sans text-[9px] tracking-[.2em] text-[#c9a965]">TECHRODEO · DOOMSDAY</span>
           <Link href="/" onClick={() => setMenuOpen(false)}><span>00</span>Home<ArrowRight size={17}/></Link>
           <Link href="/events" onClick={() => setMenuOpen(false)}><span>01</span>Events<ArrowRight size={17}/></Link>
           <Link href="/story" onClick={() => setMenuOpen(false)}><span>02</span>The Call<ArrowRight size={17}/></Link>

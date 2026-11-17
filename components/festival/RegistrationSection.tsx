@@ -1,9 +1,12 @@
 "use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useFestivalSound } from "@/components/festival-shell";
 import { ArrowRight, Skull } from "@/components/ui/icons";
 export function RegistrationSection() {
   const { uiSound } = useFestivalSound();
+  const [eventYear, setEventYear] = useState<string | null>(null);
+  useEffect(() => { const controller = new AbortController(); fetch("/api/public/summary", { cache: "no-store", signal: controller.signal }).then(async (response) => { const payload: { data?: { eventDate?: string | null } } = await response.json(); setEventYear(payload.data?.eventDate?.slice(0, 4) ?? null); }).catch(() => setEventYear(null)); return () => controller.abort(); }, []);
   return (
 <section
         id="register"
@@ -52,7 +55,7 @@ export function RegistrationSection() {
           <span>
             TECHRODEO
             <br />
-            2026
+            {eventYear ?? "—"}
           </span>
         </div>
       </section>

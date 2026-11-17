@@ -1,7 +1,13 @@
 "use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Flame } from "@/components/ui/icons";
-export function FestivalFooter() { return (
+export function FestivalFooter() {
+  const [eventDate, setEventDate] = useState<string | null>(null);
+  useEffect(() => { const controller = new AbortController(); fetch("/api/public/summary", { cache: "no-store", signal: controller.signal }).then(async (response) => { const payload: { data?: { eventDate?: string | null } } = await response.json(); setEventDate(payload.data?.eventDate ?? null); }).catch(() => setEventDate(null)); return () => controller.abort(); }, []);
+  const eventYear = eventDate?.slice(0, 4) ?? "—";
+  const eventDateLabel = eventDate ? eventDate.split("-").reverse().join(" ") : "DATE TO BE ANNOUNCED";
+  return (
 <footer className="bg-[#090b0b] text-[#eee9dc]">
         <div className="flex items-center justify-between gap-8 border-b border-white/[.1] px-10 py-10 max-[767px]:flex-wrap max-[767px]:px-[22px]">
           <Link href="/" className="flex items-center gap-3">
@@ -13,7 +19,7 @@ export function FestivalFooter() { return (
                 TECH<span className="text-[#e9543b]">RODEO</span>
               </strong>
               <small className="text-[8px] tracking-[.2em] text-[#898276]">
-                DOOMSDAY · 2026
+                DOOMSDAY · {eventYear}
               </small>
             </span>
           </Link>
@@ -31,11 +37,11 @@ export function FestivalFooter() { return (
           </div>
         </div>
         <div className="flex justify-between gap-4 px-10 py-5 font-sans text-[8px] tracking-[.12em] text-[#716d63] max-[767px]:flex-wrap max-[767px]:px-[22px] max-[767px]:text-[7px]">
-          <span>© 2026 TECHRODEO · LOYOLA COLLEGE</span>
+          <span>© {eventYear} TECHRODEO · LOYOLA COLLEGE</span>
           <span>
             BUILT FOR THE BOLD <span className="text-[#e9543b]">✦</span>
           </span>
-          <span>04 DECEMBER 2026</span>
+          <span>{eventDateLabel}</span>
         </div>
       </footer>
 ); }

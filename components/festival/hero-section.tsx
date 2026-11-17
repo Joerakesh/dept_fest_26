@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, CalendarDays } from "@/components/ui/icons";
 import { useFestivalSound } from "@/components/festival-shell";
@@ -115,6 +116,14 @@ function HelmetArtwork() {
 }
 
 export function HeroSection() {
+  const [eventDate, setEventDate] = useState<string | null>(null);
+  useEffect(() => {
+    const controller = new AbortController();
+    fetch("/api/public/summary", { cache: "no-store", signal: controller.signal }).then((response) => response.json()).then((payload: { data?: { eventDate?: string | null } }) => setEventDate(payload.data?.eventDate ?? null)).catch(() => setEventDate(null));
+    return () => controller.abort();
+  }, []);
+  const dateParts = eventDate?.split("-");
+  const dateLabel = dateParts?.length === 3 ? `${dateParts[2]} ${["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"][Number(dateParts[1]) - 1]}` : "EVENT DATE TBA";
   const { uiSound } = useFestivalSound();
   return (
 <section
@@ -132,7 +141,7 @@ export function HeroSection() {
               <span className="size-[7px] animate-[landing-pulse_1.8s_ease-in-out_infinite] rounded-full bg-[#e8593d] shadow-[0_0_11px_#e8593d]" />{" "}
               THE INTER-COLLEGIATE TECH FEST{" "}
               <span className="ml-[5px] border border-[rgba(211,174,97,0.35)] px-[7px] py-[5px] text-[8px] text-[#d7bd80]">
-                EDITION 2026
+                EDITION {dateParts?.[0] ?? "TBA"}
               </span>
             </div>
             <h1 className="my-[30px] flex flex-col text-[clamp(56px,9.5vw,134px)] font-black leading-[.75] tracking-[-.085em] text-[#ede7da] max-[767px]:mt-6 max-[767px]:text-[clamp(60px,18vw,106px)]">
@@ -171,7 +180,7 @@ export function HeroSection() {
               <div className="hero-meta-copy">
                 <span>MARK YOUR CALENDAR</span>
                 <strong>
-                  04 DECEMBER <em>2026</em>
+                  {dateLabel} {dateParts?.[0] && <em>{dateParts[0]}</em>}
                 </strong>
               </div>
               <i />
