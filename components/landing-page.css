@@ -1,0 +1,48 @@
+/* Landing-page-specific presentation. Kept separate from the global shadcn theme. */
+#story > div:last-child { display:flex; align-items:center; gap:18px; min-height:104px; }
+#story > div:last-child > div { flex:1; display:flex; flex-direction:column; gap:7px; border-right:1px solid rgba(221,193,124,.17); padding:15px 20px; }
+#story > div:last-child > div:last-child { border:0; }
+#story > div:last-child strong { color:#eee8db; font-size:clamp(28px,4vw,43px); font-weight:900; letter-spacing:-.06em; line-height:1; }
+#story > div:last-child span { color:#999283; font-size:8px; font-weight:800; letter-spacing:.16em; }
+#events article > div:nth-child(2) { color:var(--event-accent); }
+#events article > div:nth-child(3) { margin-top:auto; }
+#events article > div:nth-child(3) h3 { margin:8px 0 12px; color:#eee8db; }
+#events article > div:nth-child(3) > div:last-of-type { display:flex; flex-wrap:wrap; gap:8px 15px; margin-bottom:17px; }
+#events article > div:nth-child(3) > div:last-of-type span { display:inline-flex; align-items:center; gap:6px; }
+#events article > div:nth-child(3) > a { display:inline-flex; align-items:center; gap:9px; }
+.event-card-edge { position:absolute; inset:0 auto auto 0; width:100%; height:2px; background:linear-gradient(90deg,var(--event-accent),transparent 75%); opacity:.7; transform:scaleX(.25); transform-origin:left; transition:transform .3s ease; }
+#events article:hover .event-card-edge { transform:scaleX(1); }
+#schedule > div:nth-child(2) > div:first-child > div { display:flex; align-items:center; gap:14px; margin-top:32px; }
+#schedule > div:nth-child(2) > div:first-child > div > div { display:flex; flex:1; flex-direction:column; gap:7px; }
+#schedule > div:nth-child(2) > div:first-child > div span { color:#a99d83; font-size:8px; font-weight:800; letter-spacing:.15em; }
+#schedule > div:nth-child(2) > div:first-child > div strong { color:#e9d7ad; font-size:13px; letter-spacing:.08em; }
+#schedule .relative.grid time { color:#d5b875; font-family:ui-monospace,monospace; font-size:11px; font-weight:800; }
+#schedule .relative.grid > i { top:29px; width:9px; height:9px; border:1px solid #d3ae61; border-radius:50%; background:#101210; box-shadow:0 0 0 4px rgba(211,174,97,.08); }
+#schedule .relative.grid > div { display:flex; flex-direction:column; gap:7px; }
+#schedule .relative.grid > div strong { color:#e7e0d2; font-size:11px; letter-spacing:.12em; }
+#schedule .relative.grid > div span { color:#999487; font-size:11px; line-height:1.6; }
+#register h2 { margin:0; color:#eee8db; font-size:clamp(48px,8vw,96px); font-weight:950; line-height:.86; letter-spacing:-.075em; }
+#register h2 span { color:#e65b3b; }
+#register p { color:#b8aa9b; font-size:13px; line-height:1.8; }
+#register small { margin-top:18px; color:#b8aa9b; font-size:11px; }
+#register > div > div:last-child { display:flex; flex-direction:column; gap:9px; font-family:ui-monospace,monospace; font-size:9px; font-weight:900; letter-spacing:.18em; text-align:center; }
+#faq .faq-item { border-bottom:1px solid rgba(255,255,255,.1); }
+#faq .faq-item button { display:flex; width:100%; min-height:75px; align-items:center; justify-content:space-between; gap:20px; border:0; background:transparent; color:#e9e3d7; cursor:pointer; text-align:left; font-size:13px; font-weight:750; }
+#faq .faq-item button > span { display:flex; align-items:center; gap:20px; }
+#faq .faq-item button i { color:#c7a45c; font-family:ui-monospace,monospace; font-size:9px; font-style:normal; }
+#faq .faq-item button svg { flex:none; color:#c7a45c; transition:transform .2s ease; }
+#faq .faq-item button[aria-expanded="true"] svg { transform:rotate(180deg); }
+#faq .faq-item p { max-width:620px; margin:0 35px 22px 42px; color:#a9a294; font-size:12px; line-height:1.8; }
+footer a { transition:color .2s ease; }
+footer a:hover { color:#f2c773; }
+@media (max-width:767px) {
+  #story > div:last-child { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0; }
+  #story > div:last-child > div { min-height:95px; padding:16px 10px; border-bottom:1px solid rgba(221,193,124,.17); }
+  #story > div:last-child > div:nth-child(2) { border-right:0; }
+  #story > div:last-child > div:nth-child(3) { border-bottom:0; }
+  #faq .faq-item button { min-height:68px; font-size:12px; }
+  #faq .faq-item p { margin-left:38px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .event-card-edge { transition:none; }
+}
