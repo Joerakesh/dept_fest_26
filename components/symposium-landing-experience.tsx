@@ -67,17 +67,14 @@ export function SymposiumLandingExperience() {
   const [events,setEvents]=useState<EventRecord[]>([]);
   const [intro,setIntro]=useState(true);
   const [transition,setTransition]=useState<{event:EventRecord,index:number}|null>(null);
-  const [audio,setAudio]=useState(false);
-  const audioRef=useRef<HTMLAudioElement>(null);
   useEffect(()=>{const c=new AbortController();fetch("/api/events",{cache:"no-store",signal:c.signal}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(p=>setEvents(Array.isArray(p.data)?p.data:[])).catch(()=>setEvents([]));return()=>c.abort();},[]);
   const summary=useMemo(()=>({count:events.length,date:events.find(e=>e.eventDate)?.eventDate}),[events]);
   const startTransition=useCallback((event:EventRecord,index:number)=>setTransition({event,index}),[]);
   const finishTransition=useCallback(()=>{if(!transition)return;router.push("/register");setTransition(null);},[router,transition]);
-  const toggleAudio=()=>{const el=audioRef.current;if(!el)return;if(audio){el.pause();setAudio(false);}else{void el.play().then(()=>setAudio(true)).catch(()=>setAudio(false));}};
+  useEffect(()=>{if(!transition)return;const timer=window.setTimeout(finishTransition,1250);return()=>window.clearTimeout(timer);},[transition,finishTransition]);
   const dateLabel=summary.date?new Date(summary.date+"T00:00:00").toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"}):"DATE TO BE ANNOUNCED";
   return <div className="relative min-h-screen overflow-hidden bg-[#050806] text-[#e6ece9] selection:bg-[#00ff66]/30">
     <FogCanvas/>
-    <audio ref={audioRef} loop preload="none"><source src="/audio/techrodeo-theme.mp3" type="audio/mpeg"/></audio>
     <AnimatePresence>{intro&&<EntryIntro onDone={()=>setIntro(false)}/>}</AnimatePresence>
     <AnimatePresence>{transition&&<motion.div key={transition.event.id} className="fixed inset-0 z-[90] flex items-center justify-center overflow-hidden bg-[#020503]/95" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:.18}}>
       <motion.div className="absolute inset-0" style={{background:`radial-gradient(circle at center,${themes[transition.index%7].glow},transparent 65%)`}} initial={{scale:.2,opacity:0}} animate={{scale:[.2,1.4,2],opacity:[0,.85,0]}} transition={{duration:1.15}}/>
@@ -92,7 +89,6 @@ export function SymposiumLandingExperience() {
         <a href="#top" className="shrink-0 font-serif text-lg font-black tracking-[.17em] text-white">TECH<span className="text-[#00ff66]">RODEO</span></a>
         <nav className="hidden items-center gap-8 text-sm text-[#8e9b97] md:flex"><a href="#events" className="hover:text-white">Events</a><a href="#schedule" className="hover:text-white">Schedule</a><a href="#venue" className="hover:text-white">Venue</a></nav>
         <div className="flex items-center gap-2">
-          <button onClick={toggleAudio} aria-label={audio?"Mute soundtrack":"Play soundtrack"} className="grid size-10 place-items-center rounded-lg border border-white/15 text-[#00ff66]">{audio?<Volume2 size={17}/>:<VolumeX size={17}/>}</button>
           <button onClick={()=>setIntro(true)} className="hidden items-center gap-2 rounded-lg border border-white/15 px-3 py-2 text-xs text-[#aab5af] sm:flex"><RotateCcw size={14}/> Replay intro</button>
           <button onClick={()=>router.push("/register")} className="rounded-lg bg-[#00ff66] px-4 py-2.5 text-xs font-bold text-[#041008] hover:bg-emerald-400">Register now</button>
         </div>
