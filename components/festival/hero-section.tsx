@@ -136,7 +136,7 @@ export function HeroSection() {
           LOYOLA COLLEGE · CHENNAI · INDIA
         </div>
         <div className="relative mx-auto grid w-full max-w-[1440px] items-center gap-4 px-5 pb-20 pt-12 md:grid-cols-[1.04fr_.96fr] md:px-10 md:pb-24">
-          <div className="hero-copy relative z-10">
+          <div className="hero-copy relative z-10 animate-[rise-in_.8s_cubic-bezier(.16,1,.3,1)_both]">
             <div className="flex items-center gap-2.5 text-[9px] font-extrabold tracking-[.2em] text-[#b2a57e]">
               <span className="size-[7px] animate-[landing-pulse_1.8s_ease-in-out_infinite] rounded-full bg-[#e8593d] shadow-[0_0_11px_#e8593d]" />{" "}
               THE INTER-COLLEGIATE TECH FEST{" "}
@@ -154,8 +154,7 @@ export function HeroSection() {
               </span>
             </h1>
             <p className="ml-1 mt-[25px] max-w-[440px] text-[14px] leading-[1.8] text-[#afa99c] max-[767px]:max-w-[380px] max-[767px]:text-[13px]">
-              Eight arenas. One day. Bring your sharpest minds to the edge of
-              the known universe.
+              A day of high-stakes challenges, creativity, and competition. Bring your sharpest minds to the arena and make your mark.
             </p>
             <div className="my-[27px] mb-[34px] ml-1 flex flex-wrap items-center gap-[23px]">
               <Link
@@ -189,9 +188,14 @@ export function HeroSection() {
                 <strong>LOYOLA COLLEGE, CHENNAI</strong>
               </div>
             </div>
+            <div className="mt-8 grid max-w-[530px] grid-cols-3 border-y border-[rgba(215,193,135,0.18)] py-5">
+              <div className="border-r border-white/10 pr-3"><strong className="block font-mono text-xl text-[#eee8db]">01</strong><span className="mt-1 block text-[8px] font-bold tracking-[.14em] text-[#928b7d]">ONE DAY</span></div>
+              <div className="border-r border-white/10 px-3"><strong className="block font-mono text-xl text-[#eee8db]">∞</strong><span className="mt-1 block text-[8px] font-bold tracking-[.14em] text-[#928b7d]">POSSIBILITIES</span></div>
+              <div className="pl-3"><strong className="block font-mono text-xl text-[#e4b76d]">GO</strong><span className="mt-1 block text-[8px] font-bold tracking-[.14em] text-[#928b7d]">CLAIM YOUR ARENA</span></div>
+            </div>
           </div>
           <div
-            className="relative grid min-h-[560px] place-items-center max-[767px]:absolute max-[767px]:right-[-165px] max-[767px]:top-[118px] max-[767px]:w-[75%] max-[767px]:min-h-[370px] max-[767px]:opacity-20"
+            className="relative grid min-h-[560px] place-items-center animate-[fade-in_1.1s_ease-out_both] max-[767px]:absolute max-[767px]:right-[-165px] max-[767px]:top-[118px] max-[767px]:w-[75%] max-[767px]:min-h-[370px] max-[767px]:opacity-20"
             aria-label="Armored sentinel illustration"
           >
             <div className="absolute z-0 aspect-square w-[72%] rounded-full border border-[rgba(216,178,94,0.15)] [transform:rotateX(64deg)_rotate(-22deg)] animate-[orbit-spin_38s_linear_infinite]" />
