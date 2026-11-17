@@ -11,6 +11,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
   const router = useRouter();
   const [name, setName] = useState("");
   const [college, setCollege] = useState("");
+  const [department, setDepartment] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [createdUsername, setCreatedUsername] = useState("");
@@ -25,7 +26,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
       const response = await fetch(`/api/auth/${mode}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(mode === "register" ? { name, college, password } : { username, password }),
+        body: JSON.stringify(mode === "register" ? { name, college, department, password } : { username, password }),
       });
       const payload = await response.json();
       if (!response.ok) throw new Error(payload.error || "Something went wrong.");
@@ -63,6 +64,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
           {mode === "register" ? <>
             <label className="block text-[10px] font-bold uppercase tracking-wider text-[#c9bd9a]">Full name<input required minLength={2} maxLength={80} autoComplete="name" value={name} onChange={e => setName(e.target.value)} placeholder="Your name" className="mt-2 h-11 w-full border border-white/10 bg-[#0c0e0e] px-3 text-sm normal-case tracking-normal text-white outline-none focus:border-[#d5ad67]" /></label>
             <label className="block text-[10px] font-bold uppercase tracking-wider text-[#c9bd9a]">College<input required minLength={2} maxLength={120} autoComplete="organization" value={college} onChange={e => setCollege(e.target.value)} placeholder="Your college name" className="mt-2 h-11 w-full border border-white/10 bg-[#0c0e0e] px-3 text-sm normal-case tracking-normal text-white outline-none focus:border-[#d5ad67]" /></label>
+            <label className="block text-[10px] font-bold uppercase tracking-wider text-[#c9bd9a]">Department<input required minLength={2} maxLength={100} autoComplete="organization-title" value={department} onChange={e => setDepartment(e.target.value)} placeholder="Your department (e.g. Data Science)" className="mt-2 h-11 w-full border border-white/10 bg-[#0c0e0e] px-3 text-sm normal-case tracking-normal text-white outline-none focus:border-[#d5ad67]" /></label>
           </> : <label className="block text-[10px] font-bold uppercase tracking-wider text-[#c9bd9a]">Username<input required autoComplete="username" value={username} onChange={e => setUsername(e.target.value)} placeholder="Generated username" className="mt-2 h-11 w-full border border-white/10 bg-[#0c0e0e] px-3 text-sm normal-case tracking-normal text-white outline-none focus:border-[#d5ad67]" /></label>}
           <label className="block text-[10px] font-bold uppercase tracking-wider text-[#c9bd9a]">Password<input required minLength={mode === "register" ? 8 : undefined} type="password" autoComplete={mode === "register" ? "new-password" : "current-password"} value={password} onChange={e => setPassword(e.target.value)} placeholder={mode === "register" ? "At least 8 characters" : "Your password"} className="mt-2 h-11 w-full border border-white/10 bg-[#0c0e0e] px-3 text-sm normal-case tracking-normal text-white outline-none focus:border-[#d5ad67]" /></label>
           {error && <p role="alert" className="border border-red-400/25 bg-red-400/5 px-3 py-2 text-xs text-red-300">{error}</p>}
