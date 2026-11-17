@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { getDatabase } from "@/lib/db";
 import { createSession, hashPassword, SESSION_COOKIE, sessionCookieOptions } from "@/lib/auth";
 
-export const runtime = "nodejs";
-
 function usernameBase(name: string) {
   return name.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
     .replace(/[^a-z0-9]+/g, "").slice(0, 18) || "student";
