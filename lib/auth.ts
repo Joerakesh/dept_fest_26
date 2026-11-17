@@ -11,6 +11,7 @@ export interface UserRecord {
   username: string;
   name: string;
   college: string;
+  department: string;
   passwordHash: string;
   role: "student" | "organizer";
   createdAt: Date;
@@ -64,6 +65,7 @@ export async function getSessionUser(db: Db, token?: string | null) {
     username: user.username,
     name: user.name,
     college: user.college,
+    department: user.department,
     role: user.role,
   };
 }
