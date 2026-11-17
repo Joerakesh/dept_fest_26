@@ -12,7 +12,7 @@ A Next.js App Router portal for the TECHRODEO multi-college event. The interface
 
 ## Participant accounts
 
-- Registration: `POST /api/auth/register` — accepts name, college, and password. The server generates a username and returns it after signup.
+- Registration: `POST /api/auth/register` — accepts name, college, department, and password. The server generates a username and returns it after signup.
 - Sign in: `POST /api/auth/login` — accepts generated username and password.
 - Sign out: `POST /api/auth/logout`.
 - Current session: `GET /api/auth/me`.
