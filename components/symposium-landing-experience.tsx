@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
+import { HeroFigure3D } from "@/components/hero-figure-3d";
 import { ArrowUpRight, CalendarDays, MapPin, RotateCcw, Sparkles } from "lucide-react";
 
 type EventRecord = {
@@ -54,20 +55,11 @@ function EntryIntro({ onDone }: { onDone:()=>void }) {
 }
 
 function HeroFigure({ theme }: {theme:number}) {
-  const t=themes[theme%themes.length];
-  return <motion.div className="relative grid aspect-square w-full max-w-[440px] place-items-center" animate={{y:[0,-12,0],rotate:[0,.7,0]}} transition={{duration:6,ease:"easeInOut",repeat:Infinity}}>
-    <div className="absolute inset-[7%] rounded-full border border-white/10 [transform:rotateX(68deg)]"/>
-    <div className="absolute inset-[15%] rounded-full border border-dashed" style={{borderColor:t.color+"55",transform:"rotateX(68deg) rotate(28deg)"}}/>
-    <motion.div className="absolute inset-[22%] rounded-full blur-3xl" style={{background:t.glow}} animate={{opacity:[.18,.45,.18],scale:[.85,1.12,.85]}} transition={{duration:3,repeat:Infinity}}/>
-    <div className="relative z-10 flex h-[66%] w-[55%] flex-col items-center justify-center" style={{filter:`drop-shadow(0 0 32px ${t.glow})`}}>
-      <div className="relative h-[54%] w-[72%] rounded-[42%_42%_32%_32%] border-[3px] bg-gradient-to-br from-[#53615a] via-[#1a2721] to-[#050806]" style={{borderColor:t.color+"aa",clipPath:"polygon(8% 0,92% 0,100% 72%,75% 100%,25% 100%,0 72%)"}}>
-        <div className="absolute left-[12%] right-[12%] top-[42%] flex justify-between"><i className="h-2 w-[36%] skew-x-[-25deg]" style={{background:t.color,boxShadow:`0 0 18px ${t.color}`}}/><i className="h-2 w-[36%] skew-x-[25deg]" style={{background:t.color,boxShadow:`0 0 18px ${t.color}`}}/></div>
-        <div className="absolute bottom-[10%] left-1/2 h-[30%] w-[18%] -translate-x-1/2 border-x border-b border-white/20"/>
-      </div>
-      <div className="-mt-1 h-[34%] w-full rounded-t-[35%] border-x-2 border-t-2 bg-gradient-to-b from-[#35443a] to-[#080c0a]" style={{borderColor:t.color+"66",clipPath:"polygon(18% 0,82% 0,100% 100%,0 100%)"}}/>
-    </div>
-    <span className="absolute bottom-[4%] font-mono text-[9px] tracking-[.3em]" style={{color:t.color}}>{t.name} // CLASSIFIED</span>
-  </motion.div>;
+  return <div className="relative mx-auto aspect-square w-full max-w-[440px]">
+    <div className="absolute inset-[8%] rounded-full border border-[#00ff66]/20 [transform:rotateX(68deg)]"/>
+    <div className="absolute inset-[15%] rounded-full border border-dashed border-[#00ff66]/20 [transform:rotateX(68deg)_rotate(28deg)]"/>
+    <HeroFigure3D theme={theme} className="relative z-10 h-full w-full"/>
+  </div>;
 }
 
 export function SymposiumLandingExperience() {
