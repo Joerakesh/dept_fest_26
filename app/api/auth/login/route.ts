@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { getDatabase } from "@/lib/db";
 import { createSession, SESSION_COOKIE, sessionCookieOptions, verifyPassword, type UserRecord } from "@/lib/auth";
 
-export const runtime = "nodejs";
-
 export async function POST(request: Request) {
   try {
     const body = await request.json();
