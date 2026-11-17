@@ -1,7 +1,7 @@
 "use client";
 import { useState, type CSSProperties } from "react";
 import { LandingNavbar } from "@/components/landing-navbar";
-import { ArrowRight, CalendarDays, Check, ChevronDown, Clock3, Flame, ShieldCheck, Skull } from "@/components/ui/icons";
+import { ArrowRight, CalendarDays, Check, ChevronDown, Clock3, Command, Flame, ShieldCheck, Skull } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
 import { playUiSfx } from "@/lib/sounds";
 
