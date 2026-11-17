@@ -3,8 +3,6 @@ import { cookies } from "next/headers";
 import { getDatabase } from "@/lib/db";
 import { hashToken, SESSION_COOKIE } from "@/lib/auth";
 
-export const runtime = "nodejs";
-
 export async function POST() {
   const jar = await cookies();
   const token = jar.get(SESSION_COOKIE)?.value;
