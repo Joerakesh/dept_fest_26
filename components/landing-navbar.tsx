@@ -13,7 +13,7 @@ export function LandingNavbar({ sound, onToggleSound, uiSound }: LandingNavbarPr
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-0 bg-[linear-gradient(180deg,rgba(5,7,8,0.88),rgba(5,7,8,0))] backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 border-0">
       <div className="relative mx-auto flex h-[82px] max-w-[1500px] items-center justify-between px-5 md:px-8 max-[767px]:h-[70px]">
         <a href="#top" className="flex shrink-0 items-center gap-3" aria-label="TECHRODEO home">
           <span className="grid size-9 place-items-center border border-[rgba(217,176,91,0.56)] bg-[linear-gradient(145deg,rgba(151,123,63,0.24),rgba(25,30,26,0.3))] text-[#ead091] shadow-[0_0_20px_rgba(183,55,41,0.15),inset_0_0_14px_rgba(215,176,91,0.07)]"><Flame size={19}/></span>
@@ -32,13 +32,13 @@ export function LandingNavbar({ sound, onToggleSound, uiSound }: LandingNavbarPr
 
         <div className="flex shrink-0 items-center gap-3">
           <button
-            className="flex size-[43px] items-center justify-center gap-[7px] rounded-full border border-white/[.18] bg-[rgba(17,19,19,0.32)] text-[9px] font-extrabold tracking-[.13em] text-[#b9b2a3] shadow-[inset_.5px_1px_3px_rgba(255,255,255,0.18)] backdrop-blur-2xl hover:text-[#f0ca77] max-[767px]:size-[39px]"
+            className="flex min-h-[43px] min-w-[43px] items-center justify-center gap-2 px-3 rounded-full border border-white/[.18] bg-[rgba(17,19,19,0.32)] text-[9px] font-extrabold tracking-[.13em] text-[#b9b2a3] shadow-[inset_.5px_1px_3px_rgba(255,255,255,0.18)] backdrop-blur-2xl hover:text-[#f0ca77] max-[767px]:min-h-[39px] max-[767px]:min-w-[39px] max-[767px]:px-2"
             onClick={onToggleSound}
             aria-label={sound ? "Turn sound off" : "Turn sound on"}
             title={sound ? "Sound on" : "Sound off"}
           >
             {sound ? <Volume2 size={17}/> : <VolumeX size={17}/>}
-            <span className="hidden sm:inline">SOUND {sound ? "ON" : "OFF"}</span>
+            {/* <span className="hidden sm:inline">{sound ? <Volume2 size={17}/> : <VolumeX size={17}/>}</span> */}
           </button>
           <a className="inline-flex min-h-[45px] items-center justify-center gap-3 rounded-full border border-white/[.24] bg-[rgba(17,19,19,0.32)] px-[21px] text-[9px] font-black tracking-[.13em] text-[#f8f2e9] no-underline shadow-[inset_.5px_1px_3px_rgba(255,255,255,0.2)] backdrop-blur-2xl transition hover:-translate-y-0.5 hover:border-[rgba(240,190,114,0.62)] hover:bg-black/30 max-[1050px]:px-[15px] max-[1050px]:text-[8px] max-[767px]:hidden" href="#register" onClick={uiSound}>
             ENTER THE ARENA <ArrowRight size={14}/>
@@ -56,7 +56,7 @@ export function LandingNavbar({ sound, onToggleSound, uiSound }: LandingNavbarPr
 
       <div className={"fixed inset-0 -z-10 hidden overflow-hidden bg-[rgba(5,7,8,0.97)] transition-[clip-path,opacity,visibility] duration-500 max-[767px]:block " + (menuOpen ? "visible opacity-100 [clip-path:circle(150vmax_at_calc(100%-42px)_35px)]" : "invisible opacity-0 [clip-path:circle(0px_at_calc(100%-42px)_35px)]")} aria-hidden={!menuOpen}>
         <nav className="flex min-h-full w-full flex-col justify-center gap-0 px-[34px] pb-[42px] pt-[92px]" aria-label="Mobile navigation">
-          <span className="mb-6 font-mono text-[9px] tracking-[.2em] text-[#c9a965]">TECHRODEO · DOOMSDAY 2026</span>
+          <span className="mb-6 font-sans text-[9px] tracking-[.2em] text-[#c9a965]">TECHRODEO · DOOMSDAY 2026</span>
           <a href="#top" onClick={() => setMenuOpen(false)}><span>00</span>Home<ArrowRight size={17}/></a>
           <a href="#events" onClick={() => setMenuOpen(false)}><span>01</span>Events<ArrowRight size={17}/></a>
           <a href="#story" onClick={() => setMenuOpen(false)}><span>02</span>The Call<ArrowRight size={17}/></a>

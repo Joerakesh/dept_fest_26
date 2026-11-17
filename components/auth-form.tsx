@@ -53,7 +53,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
         <p className="mt-3 text-sm leading-6 text-[#b6aca0]">Your account is ready. Save this generated username — you’ll use it every time you sign in.</p>
         <div className="mt-6 border border-[#d5ad67]/40 bg-[#d5ad67]/[.07] p-5">
           <div className="text-[9px] font-bold uppercase tracking-[.16em] text-[#b8a783]">Your username</div>
-          <div className="mt-2 break-all font-mono text-2xl font-bold tracking-wide text-[#f0c878]">{createdUsername}</div>
+          <div className="mt-2 break-all font-sans text-2xl font-bold tracking-wide text-[#f0c878]">{createdUsername}</div>
           <button onClick={() => navigator.clipboard.writeText(createdUsername)} className="mt-3 text-[10px] font-bold uppercase tracking-wider text-[#e5b86b] underline underline-offset-4">Copy username</button>
         </div>
         <Link href="/login" className="mt-6 flex h-11 items-center justify-center gap-2 bg-[#a94330] text-[10px] font-black uppercase tracking-[.14em] hover:bg-[#c45239]">Continue to sign in <ArrowRight size={14}/></Link>
