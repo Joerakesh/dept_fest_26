@@ -53,3 +53,22 @@ footer a:hover { color:#f2c773; }
 .hero-meta-copy > span { color:#8e8a7d; font-size:8px; font-weight:800; letter-spacing:.15em; }
 .hero-meta-copy strong { color:#e6dfd1; font-size:10px; font-weight:850; letter-spacing:.1em; white-space:nowrap; }
 .hero-meta-copy em { color:#e8bd65; font-style:normal; }
+
+
+/* DATAVERSE cinematic direction adapted for TECHRODEO */
+#top { isolation:isolate; }
+#top::after { content:""; position:absolute; inset:0; pointer-events:none; opacity:.22; z-index:-1; background:repeating-linear-gradient(0deg,transparent 0,rgba(0,0,0,.12) 1px,transparent 3px); }
+#top .hero-copy { animation: rise-in .8s cubic-bezier(.16,1,.3,1) both; }
+#top .hero-copy h1 { filter: drop-shadow(0 0 32px rgba(215,176,91,.12)); }
+#top .hero-copy h1 > span:nth-child(2) { text-shadow:0 3px 0 #827f70,0 8px 36px rgba(228,69,50,.15); }
+#top .hero-copy a:focus-visible, #events a:focus-visible { outline:2px solid #d3ae61; outline-offset:4px; }
+#events article { isolation:isolate; }
+#events article::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:.4; background:radial-gradient(circle at 85% 22%,var(--event-accent),transparent 38%); mix-blend-mode:screen; transition:opacity .3s ease; z-index:-1; }
+#events article:hover::before { opacity:.75; }
+#events article > div:nth-child(2) { position:relative; }
+#events article > div:nth-child(2)::after { content:""; position:absolute; right:12px; top:14px; width:56px; height:56px; border:1px solid color-mix(in srgb,var(--event-accent),transparent 45%); border-radius:50%; box-shadow:0 0 30px color-mix(in srgb,var(--event-accent),transparent 65%); transition:transform .45s ease; }
+#events article:hover > div:nth-child(2)::after { transform:scale(1.18) rotate(22deg); }
+@media (prefers-reduced-motion: reduce) {
+  #top .hero-copy { animation:none; }
+  #events article::before, #events article > div:nth-child(2)::after { transition:none; }
+}
