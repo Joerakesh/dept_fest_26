@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Command, Volume2, VolumeX, X } from "@/components/ui/icons";
+import { ArrowRight, Flame, Volume2, VolumeX, X } from "@/components/ui/icons";
 
 type LandingNavbarProps = {
   sound: boolean;
@@ -13,10 +13,10 @@ export function LandingNavbar({ sound, onToggleSound, uiSound }: LandingNavbarPr
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-0 bg-[linear-gradient(180deg,rgba(5,7,8,0.72),rgba(5,7,8,0))] backdrop-blur-none fixed inset-x-0 top-0 z-50">
-      <div className="relative mx-auto flex h-[82px] max-w-[1500px] items-center justify-between px-5 md:px-8 max-[767px]:h-[70px] mx-auto flex h-[82px] max-w-[1500px] items-center justify-between px-5 md:px-8">
+    <header className="fixed inset-x-0 top-0 z-50 border-0 bg-[linear-gradient(180deg,rgba(5,7,8,0.88),rgba(5,7,8,0))] backdrop-blur-xl">
+      <div className="relative mx-auto flex h-[82px] max-w-[1500px] items-center justify-between px-5 md:px-8 max-[767px]:h-[70px]">
         <a href="#top" className="flex shrink-0 items-center gap-3" aria-label="TECHRODEO home">
-          <span className="grid size-9 place-items-center border border-[rgba(217,176,91,0.56)] bg-[linear-gradient(145deg,rgba(151,123,63,0.24),rgba(25,30,26,0.3))] text-[#ead091] shadow-[0_0_20px_rgba(183,55,41,0.15),inset_0_0_14px_rgba(215,176,91,0.07)]"><Command size={19}/></span>
+          <span className="grid size-9 place-items-center border border-[rgba(217,176,91,0.56)] bg-[linear-gradient(145deg,rgba(151,123,63,0.24),rgba(25,30,26,0.3))] text-[#ead091] shadow-[0_0_20px_rgba(183,55,41,0.15),inset_0_0_14px_rgba(215,176,91,0.07)]"><Flame size={19}/></span>
           <span>
             <strong className="block text-[13px] font-black tracking-[.17em]">TECH<span className="text-[#e9543b]">RODEO</span></strong>
             <small className="mt-1 block text-[8px] font-bold tracking-[.24em] text-[#9d9687]">DOOMSDAY · 2026</small>
@@ -30,7 +30,7 @@ export function LandingNavbar({ sound, onToggleSound, uiSound }: LandingNavbarPr
           <a href="#faq">FAQ</a>
         </nav>
 
-        <div className="flex shrink-0 items-center gap-3 flex shrink-0 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-3">
           <button
             className="flex size-[43px] items-center justify-center gap-[7px] rounded-full border border-white/[.18] bg-[rgba(17,19,19,0.32)] text-[9px] font-extrabold tracking-[.13em] text-[#b9b2a3] shadow-[inset_.5px_1px_3px_rgba(255,255,255,0.18)] backdrop-blur-2xl hover:text-[#f0ca77] max-[767px]:size-[39px]"
             onClick={onToggleSound}
