@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
 
-  allowedDevOrigins: ["dev.joerakesh.tech"],
+  allowedDevOrigins: ["dev.joerakesh.tech", "10.190.146.165"],
 
   turbopack: {
     rules: {

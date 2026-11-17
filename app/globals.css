@@ -751,3 +751,4 @@ input {
 @media (prefers-reduced-motion:reduce) {
   .mobile-nav-overlay { transition:none; }
 }
+@media (max-width:767px) { .hero-vertical-label { display:none; } .hero-art-wrap { right:-165px; opacity:.2; } }
