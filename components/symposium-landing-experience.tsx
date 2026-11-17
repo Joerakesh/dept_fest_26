@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { HeroFigure3D } from "@/components/hero-figure-3d";
+import { FogCanvas } from "@/components/dataverse/fog-canvas";
+import { EntryIntro } from "@/components/dataverse/entry-intro";
 import { ArrowUpRight, CalendarDays, MapPin, RotateCcw, Sparkles } from "lucide-react";
 
 type EventRecord = {
@@ -25,38 +27,6 @@ const zipEvents: EventRecord[] = [
  {id:"rodeo-hunt",name:"Rodeo Hunt",category:"TREASURE HUNT",description:"Solve aptitude, puzzle and computing challenges in a campus-wide treasure hunt.",startTime:"11:00 AM",endTime:"12:00 PM",minTeamSize:2,maxTeamSize:2,rules:["Two participants per team.","The event has preliminary and final rounds.","Preliminary (25 minutes): general aptitude, puzzles, crosswords and similar challenges.","Final (25 minutes): basic Mathematics, Statistics and Computer Science, including Python and Java, with an emphasis on problem-solving.","Mobile phones, smartwatches, Bluetooth devices and internet access are prohibited."]},
  {id:"data-wear",name:"Data Wear",category:"T-SHIRT PAINTING",description:"Create original artwork on a plain T-shirt based on a theme announced on the spot.",startTime:"1:30 PM",endTime:"2:30 PM",minTeamSize:2,maxTeamSize:2,rules:["Two participants per team.","Artwork must relate to the theme announced on the spot.","Bring your own plain white/black T-shirt (size L), paints, glitter, brushes, mixing plate, pencil, pen and eraser.","Pictorial references and ready-made stickers are prohibited.","Tracing or copying in any form is not allowed.","Judging considers creativity, visual impact, application quality and expression of the theme.","Mobile phones, smartwatches and Bluetooth devices are prohibited."]}
 ];
-function FogCanvas() {
-  const ref = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = ref.current; if (!canvas) return;
-    const ctx = canvas.getContext("2d"); if (!ctx) return;
-    let frame = 0; let raf = 0;
-    const resize = () => { const dpr = Math.min(window.devicePixelRatio || 1, 1.5); canvas.width = innerWidth*dpr; canvas.height = innerHeight*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); };
-    const motes = Array.from({length:48},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*2+0.4,v:Math.random()*.35+.08,a:Math.random()*.55+.1}));
-    resize(); addEventListener("resize",resize);
-    const draw=()=>{frame++;ctx.clearRect(0,0,innerWidth,innerHeight);
-      const g=ctx.createRadialGradient(innerWidth*.5,innerHeight*.55,0,innerWidth*.5,innerHeight*.55,innerWidth*.7);g.addColorStop(0,"rgba(0,100,48,.08)");g.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g;ctx.fillRect(0,0,innerWidth,innerHeight);
-      motes.forEach(m=>{m.y-=m.v;m.x+=Math.sin(frame*.004+m.r)*.18;if(m.y< -10){m.y=innerHeight+10;m.x=Math.random()*innerWidth;}ctx.beginPath();ctx.arc(m.x,m.y,m.r,0,Math.PI*2);ctx.fillStyle=`rgba(0,255,102,${m.a})`;ctx.shadowBlur=12;ctx.shadowColor="#00ff66";ctx.fill();});
-      ctx.shadowBlur=0;raf=requestAnimationFrame(draw);};
-    draw(); return()=>{cancelAnimationFrame(raf);removeEventListener("resize",resize);};
-  },[]);
-  return <canvas ref={ref} aria-hidden className="pointer-events-none fixed inset-0 z-[1] h-full w-full opacity-50"/>;
-}
-
-function EntryIntro({ onDone }: { onDone:()=>void }) {
-  useEffect(()=>{const t=window.setTimeout(onDone,2600);return()=>clearTimeout(t);},[onDone]);
-  return <motion.div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#030705]" initial={{opacity:1}} exit={{opacity:0,scale:1.04}} transition={{duration:.65}}>
-    <motion.div className="absolute h-[min(70vw,520px)] w-[min(70vw,520px)] rounded-full border border-[#00ff66]/20" animate={{rotate:360,scale:[.92,1.04,.92]}} transition={{duration:9,repeat:Infinity,ease:"linear"}}/>
-    <motion.div className="absolute h-[min(54vw,400px)] w-[min(54vw,400px)] rounded-full border border-dashed border-[#00ff66]/35" animate={{rotate:-360}} transition={{duration:16,repeat:Infinity,ease:"linear"}}/>
-    <div className="relative text-center">
-      <motion.p initial={{opacity:0,letterSpacing:".8em"}} animate={{opacity:1,letterSpacing:".32em"}} transition={{duration:.9}} className="text-[10px] font-bold text-[#00ff66]">LOYOLA COLLEGE PRESENTS</motion.p>
-      <motion.h1 initial={{opacity:0,y:30,scale:.9}} animate={{opacity:1,y:0,scale:1}} transition={{delay:.35,duration:.8}} className="mt-5 font-serif text-5xl font-black tracking-[.12em] text-white sm:text-7xl">DATAVERSE</motion.h1>
-      <motion.p initial={{opacity:0}} animate={{opacity:1}} transition={{delay:1}} className="mt-4 font-mono text-[10px] tracking-[.42em] text-[#9eaaa4]">DATAVERSE · BEYOND THE DATA</motion.p>
-      <motion.div initial={{scaleX:0}} animate={{scaleX:1}} transition={{delay:.65,duration:1.2}} className="mx-auto mt-9 h-px w-48 origin-left bg-gradient-to-r from-transparent via-[#00ff66] to-transparent"/>
-    </div>
-  </motion.div>;
-}
-
 function HeroFigure({ theme }: {theme:number}) {
   return <div className="relative mx-auto aspect-square w-full max-w-[440px]">
     <div className="absolute inset-[8%] rounded-full border border-[#00ff66]/20 [transform:rotateX(68deg)]"/>
@@ -77,7 +47,7 @@ export function SymposiumLandingExperience() {
   const dateLabel="DATE TO BE ANNOUNCED";
   return <div className="relative min-h-screen overflow-hidden bg-[#050806] text-[#e6ece9] selection:bg-[#00ff66]/30">
     <FogCanvas/>
-    <AnimatePresence>{intro&&<EntryIntro onDone={()=>setIntro(false)}/>}</AnimatePresence>
+    <AnimatePresence>{intro&&<EntryIntro visible={intro} onComplete={()=>setIntro(false)}/>}</AnimatePresence>
     <AnimatePresence>{transition&&<motion.div key={transition.event.id} className="fixed inset-0 z-[90] flex items-center justify-center overflow-hidden bg-[#020503]/95" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} transition={{duration:.18}}>
       <motion.div className="absolute inset-0" style={{background:`radial-gradient(circle at center,${themes[transition.index%themes.length].glow},transparent 65%)`}} initial={{scale:.2,opacity:0}} animate={{scale:[.2,1.4,2],opacity:[0,.85,0]}} transition={{duration:1.15}}/>
       <motion.div className="absolute inset-0" initial={{scale:.5,rotate:-25,opacity:0}} animate={{scale:1.5,rotate:35,opacity:[0,1,0]}} transition={{duration:1.15}}><svg viewBox="0 0 1000 1000" className="h-full w-full"><g fill="none" stroke={themes[transition.index%themes.length].color} strokeWidth="3"><circle cx="500" cy="500" r="220" strokeDasharray="14 10"/><circle cx="500" cy="500" r="320"/><path d="M0 0L500 500 1000 0M0 1000L500 500 1000 1000M500 0V1000M0 500H1000"/></g></svg></motion.div>
